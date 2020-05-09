@@ -56,7 +56,7 @@ namespace FindAGunDamnIt
                 return null;
             }
 
-            if (pawn.RaceProps.Humanlike && pawn.story.DisabledWorkTagsBackstoryAndTraits.OverlapsWithOnAnyWorkType(WorkTags.Violent))
+            if (pawn.RaceProps.Humanlike && pawn.WorkTagIsDisabled(WorkTags.Violent))
             {
                 Gunfitter.Trace(pawn.ToString() + " is a wuss and cant even gunfit.");
                 return null;
