@@ -13,6 +13,11 @@ namespace FindAGunDamnIt
         
         static Constants()
         {
+            if (FindAGunDamnItMod.instance.Settings == null)
+            {
+                //Log.Message("HighTechLaboratoryFacilities: settings null");
+                FindAGunDamnItMod.instance.Settings.FindingSetting = FindAGunDamnItMod.findingSettings[0];
+            }
         }
     }
 }

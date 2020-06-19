@@ -1,7 +1,9 @@
 //#define DEBUG
+//#define EXTRADEBUG
 //comment that out^
 
 using System;
+using System.Collections.Generic;
 using RimWorld;
 using Verse;
 
@@ -10,105 +12,142 @@ namespace FindAGunDamnIt
 {
     public static class Gunfitter
     {
-        public static void Trace(string wtf)
+        public static void Trace(string wtf, bool extra = false)
         {
-            #if DEBUG
-            Log.Message("FindAGunDamnIt::"+wtf);
-            #endif
+#if DEBUG
+            if (!extra)
+                Log.Message("FindAGunDamnIt::" + wtf);
+#endif
+#if EXTRADEBUG
+            if (extra)
+                Log.Message("FindAGunDamnIt::" + wtf);
+#endif
         }
-        
-        public static bool ShouldEquipByOutfit(this JobGiver_PickUpOpportunisticWeapon that, Thing thing, Pawn pawn)
-        {
-            if (thing.IsForbidden(pawn))
-            {
-                Trace("Verboten, sorry!");
-                return false;
-            }
-            Outfit currentOutfit = pawn.outfits.CurrentOutfit;
 
+        public static bool ShouldEquipByOutfit(this JobGiver_PickUpOpportunisticWeapon jobGiver, Thing thing, Pawn pawn)
+        {
+            Outfit currentOutfit = pawn.outfits.CurrentOutfit;
             if (!currentOutfit.filter.Allows(thing))
             {
                 Trace("Not Allowed To Thing : " + thing);
                 return false;
             }
-
-            if (!that.isBetterThanCurrent(thing, pawn)) return false;
-            Trace(pawn.ToString()+" is moving up in the world of weaponry with a "+ thing); return true;
-
+            return true;
         }
 
-        
-
-        private static bool isBetterThanCurrent(this JobGiver_PickUpOpportunisticWeapon that, Thing thing, Pawn pawn)
+        public static Thing bestGunForPawn(this JobGiver_PickUpOpportunisticWeapon jobGiver, List<Thing> guns, Pawn pawn)
         {
-           
-
-            if (pawn.equipment?.PrimaryEq == null) return true;
-            var thingEq = thing.TryGetComp<CompEquippable>();
-            var verb = thingEq.PrimaryVerb;
-
-            var hurts = verb.HarmsHealth();
-            var dmgDef = verb.GetDamageDef();
-            var boom = verb.UsesExplosiveProjectiles();
-
-            var primaryEqPrimaryVerb = pawn.equipment.PrimaryEq.PrimaryVerb;
-            var pawnHurts = primaryEqPrimaryVerb.HarmsHealth();
-            var pawnsDamageDef = primaryEqPrimaryVerb.GetDamageDef();
-            var pawnBoom = primaryEqPrimaryVerb.UsesExplosiveProjectiles();
-
-
-            var amHunter = ThinkNode_ConditionalHunter.AmHunter(pawn);
-
-            //am hunter, dont want booms
-            if (amHunter && boom) return false;
-            
-            //pawn has Explosive but is hunter.
-            if (!boom && amHunter && pawnBoom) return true;
-            
-            
-
-            try
+            if (guns == null || guns.Count == 0 || pawn == null) return null;
+            Trace("Fetching current equipped gun (if any) for " + pawn.NameShortColored.RawText);
+            Thing originalGun = null;
+            if (pawn.equipment != null && pawn.equipment.Primary != null)
             {
-                var should = Constants.ShouldEquip.Invoke(that, new object[] {thing, pawn});
-                Trace("Classic Method said  : "+should);
-                if (should != null && ! (bool) should) return false;
+                originalGun = pawn.equipment.Primary;
             }
-            catch (Exception e)
+            Thing bestGun = originalGun;
+            foreach (Thing gun in guns)
             {
-                Trace("Had a mishap with default should equip" + e);
+                if (compareGuns(jobGiver, bestGun, gun, pawn))
+                    bestGun = gun;
             }
-
-            //if it hurts and i dont
-            if (hurts && !pawnHurts) return true;
-            if (hurts /*implied && pawnHurts*/) //if both hurt pick better
+            if (bestGun != null)
             {
-                Trace("At least it hurts em!");
-                var notRanged = ! pawn.equipment.Primary.def.IsRangedWeapon;
-                if (thing.def.IsRangedWeapon && notRanged )
+                if (bestGun == originalGun)
                 {
-                    Trace("Ranged Weapon!");
-                    return true;
+                    Trace(bestGun.def + " is already the best gun for " + pawn.NameShortColored.RawText);
+                    return null;
                 }
-                else if (thing.def.IsRangedWeapon == notRanged /*same weapon category*/ 
-                         && thing.MarketValue > pawn.equipment.Primary.MarketValue)
-                {
-                    return true;
-                }
-                else
-                {
-                    Trace("Farts");
-                }
+                Trace(bestGun.def + " is the best gun for " + pawn.NameShortColored.RawText);
+                return bestGun;
             }
+            else
+                Trace("No good gun found for " + pawn.NameShortColored.RawText);
+            return bestGun;
+        }
 
-            if (!amHunter && (dmgDef.hediffSkin != null && pawnsDamageDef.hediffSkin == null
-                              || dmgDef.hediffSolid != null && pawnsDamageDef.hediffSolid == null))
+        private static bool compareGuns(this JobGiver_PickUpOpportunisticWeapon jobGiver, Thing oldGun, Thing newGun, Pawn pawn)
+        {
+            bool hunter = pawn.workSettings.WorkIsActive(WorkTypeDefOf.Hunting);
+            bool brawler = pawn.story.traits.HasTrait(TraitDefOf.Brawler);
+            if (brawler && newGun.def.IsRangedWeapon)
             {
-                Trace("Its like a flame thrower or something equally cool!");
+                Trace(newGun.def + " is ranged and pawn " + pawn.NameShortColored.RawText + " is brawler, ignoring.", true);
+                return false;
+            }
+            if (hunter && newGun.def.IsMeleeWeapon)
+            {
+                Trace(newGun.def + " is melee and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
+                return false;
+            }
+            if (oldGun == null)
+            {
+                Trace(pawn.NameShortColored.RawText + " has no weapon, anything is better.", true);
                 return true;
             }
 
-            Trace("Nothing here for me.");
-            return false;
+            var newEquippable = newGun.TryGetComp<CompEquippable>();
+            var newPrimaryVerb = newEquippable.PrimaryVerb;
+            var oldEquippable = oldGun.TryGetComp<CompEquippable>();
+            var oldPrimaryVerb = oldEquippable.PrimaryVerb;
+
+            var newHarmsHealth = newPrimaryVerb.HarmsHealth();
+            var newDamageDef = newPrimaryVerb.GetDamageDef();
+            var newIsExplosive = newPrimaryVerb.UsesExplosiveProjectiles();
+
+            var oldHarmsHealth = oldPrimaryVerb.HarmsHealth();
+            var oldDamageDef = oldPrimaryVerb.GetDamageDef();
+            var oldIsExplosive = oldPrimaryVerb.UsesExplosiveProjectiles();
+
+            if (hunter && newIsExplosive)
+            {
+                Trace(newGun.def + " is explosive and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
+                return false;
+            }
+
+            if (oldHarmsHealth && !newHarmsHealth)
+            {
+                Trace(oldGun.def + " does actual damage and " + newGun.def + " does not, ignoring.", true);
+                return false;
+            }
+
+            if (hunter && (newDamageDef.hediffSkin != null && oldDamageDef.hediffSkin == null
+                              || newDamageDef.hediffSolid != null && oldDamageDef.hediffSolid == null))
+            {
+                Trace(newGun.def + " is some kind of flamethrower/pay and spray weapon and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
+                return false;
+            }
+            bool preferMelee = pawn.skills.GetSkill(SkillDefOf.Melee).Level > pawn.skills.GetSkill(SkillDefOf.Shooting).Level;
+            if (newGun.def.IsRangedWeapon && !oldGun.def.IsRangedWeapon)
+            {
+                if (hunter)
+                    return true;
+                if (preferMelee)
+                {
+                    Trace(newGun.def + " is ranged and pawn " + pawn.NameShortColored.RawText + " is better with melee weapons, ignoring.", true);
+                    return false;
+                }
+
+            }
+
+            if (newGun.def.IsMeleeWeapon && !oldGun.def.IsMeleeWeapon)
+            {
+                if (brawler)
+                    return true;
+                if (!preferMelee)
+                {
+                    Trace(newGun.def + " is melee and pawn " + pawn.NameShortColored.RawText + " is better with ranged weapons, ignoring.", true);
+                    return false;
+                }
+            }
+
+            if (newGun.MarketValue <= oldGun.MarketValue)
+            {
+                Trace(newGun.def + " is worth less than " + oldGun.def + ", ignoring.", true);
+                return false;
+            }
+
+
+            return true;
         }
     }
 }
