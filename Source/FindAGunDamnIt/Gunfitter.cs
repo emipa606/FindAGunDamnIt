@@ -2,11 +2,10 @@
 //#define EXTRADEBUG
 //comment that out^
 
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using Verse;
-
 
 namespace FindAGunDamnIt
 {
@@ -26,30 +25,40 @@ namespace FindAGunDamnIt
 
         public static bool ShouldEquipByOutfit(this JobGiver_PickUpOpportunisticWeapon jobGiver, Thing thing, Pawn pawn)
         {
-            Outfit currentOutfit = pawn.outfits.CurrentOutfit;
-            if (!currentOutfit.filter.Allows(thing))
+            var currentOutfit = pawn.outfits.CurrentOutfit;
+            if (currentOutfit.filter.Allows(thing))
             {
-                Trace("Not Allowed To Thing : " + thing);
-                return false;
+                return true;
             }
-            return true;
+
+            Trace("Not Allowed To Thing : " + thing);
+            return false;
         }
 
-        public static Thing bestGunForPawn(this JobGiver_PickUpOpportunisticWeapon jobGiver, List<Thing> guns, Pawn pawn)
+        public static Thing bestGunForPawn(this JobGiver_PickUpOpportunisticWeapon jobGiver, List<Thing> guns,
+            Pawn pawn)
         {
-            if (guns == null || guns.Count == 0 || pawn == null) return null;
+            if (guns == null || guns.Count == 0 || pawn == null)
+            {
+                return null;
+            }
+
             Trace("Fetching current equipped gun (if any) for " + pawn.NameShortColored.RawText);
             Thing originalGun = null;
-            if (pawn.equipment != null && pawn.equipment.Primary != null)
+            if (pawn.equipment?.Primary != null)
             {
                 originalGun = pawn.equipment.Primary;
             }
-            Thing bestGun = originalGun;
-            foreach (Thing gun in guns)
+
+            var bestGun = originalGun;
+            foreach (var gun in guns)
             {
-                if (compareGuns(jobGiver, bestGun, gun, pawn))
+                if (compareGuns(bestGun, gun, pawn))
+                {
                     bestGun = gun;
+                }
             }
+
             if (bestGun != null)
             {
                 if (bestGun == originalGun)
@@ -57,28 +66,35 @@ namespace FindAGunDamnIt
                     Trace(bestGun.def + " is already the best gun for " + pawn.NameShortColored.RawText);
                     return null;
                 }
+
                 Trace(bestGun.def + " is the best gun for " + pawn.NameShortColored.RawText);
                 return bestGun;
             }
-            else
-                Trace("No good gun found for " + pawn.NameShortColored.RawText);
+
+            Trace("No good gun found for " + pawn.NameShortColored.RawText);
+
             return bestGun;
         }
 
-        private static bool compareGuns(this JobGiver_PickUpOpportunisticWeapon jobGiver, Thing oldGun, Thing newGun, Pawn pawn)
+        private static bool compareGuns(Thing oldGun, Thing newGun,
+            Pawn pawn)
         {
-            bool hunter = pawn.workSettings.WorkIsActive(WorkTypeDefOf.Hunting);
-            bool brawler = pawn.story.traits.HasTrait(TraitDefOf.Brawler);
+            var hunter = pawn.workSettings.WorkIsActive(WorkTypeDefOf.Hunting);
+            var brawler = pawn.story.traits.HasTrait(TraitDefOf.Brawler);
             if (brawler && newGun.def.IsRangedWeapon)
             {
-                Trace(newGun.def + " is ranged and pawn " + pawn.NameShortColored.RawText + " is brawler, ignoring.", true);
+                Trace(newGun.def + " is ranged and pawn " + pawn.NameShortColored.RawText + " is brawler, ignoring.",
+                    true);
                 return false;
             }
+
             if (hunter && newGun.def.IsMeleeWeapon)
             {
-                Trace(newGun.def + " is melee and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
+                Trace(newGun.def + " is melee and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.",
+                    true);
                 return false;
             }
+
             if (oldGun == null)
             {
                 Trace(pawn.NameShortColored.RawText + " has no weapon, anything is better.", true);
@@ -96,11 +112,11 @@ namespace FindAGunDamnIt
 
             var oldHarmsHealth = oldPrimaryVerb.HarmsHealth();
             var oldDamageDef = oldPrimaryVerb.GetDamageDef();
-            var oldIsExplosive = oldPrimaryVerb.UsesExplosiveProjectiles();
 
             if (hunter && newIsExplosive)
             {
-                Trace(newGun.def + " is explosive and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
+                Trace(newGun.def + " is explosive and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.",
+                    true);
                 return false;
             }
 
@@ -111,31 +127,44 @@ namespace FindAGunDamnIt
             }
 
             if (hunter && (newDamageDef.hediffSkin != null && oldDamageDef.hediffSkin == null
-                              || newDamageDef.hediffSolid != null && oldDamageDef.hediffSolid == null))
+                           || newDamageDef.hediffSolid != null && oldDamageDef.hediffSolid == null))
             {
-                Trace(newGun.def + " is some kind of flamethrower/pay and spray weapon and pawn " + pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
+                Trace(
+                    newGun.def + " is some kind of flamethrower/pay and spray weapon and pawn " +
+                    pawn.NameShortColored.RawText + " is hunter, ignoring.", true);
                 return false;
             }
-            bool preferMelee = pawn.skills.GetSkill(SkillDefOf.Melee).Level > pawn.skills.GetSkill(SkillDefOf.Shooting).Level;
+
+            var preferMelee = pawn.skills.GetSkill(SkillDefOf.Melee).Level >
+                              pawn.skills.GetSkill(SkillDefOf.Shooting).Level;
             if (newGun.def.IsRangedWeapon && !oldGun.def.IsRangedWeapon)
             {
                 if (hunter)
-                    return true;
-                if (preferMelee)
                 {
-                    Trace(newGun.def + " is ranged and pawn " + pawn.NameShortColored.RawText + " is better with melee weapons, ignoring.", true);
-                    return false;
+                    return true;
                 }
 
+                if (preferMelee)
+                {
+                    Trace(
+                        newGun.def + " is ranged and pawn " + pawn.NameShortColored.RawText +
+                        " is better with melee weapons, ignoring.", true);
+                    return false;
+                }
             }
 
             if (newGun.def.IsMeleeWeapon && !oldGun.def.IsMeleeWeapon)
             {
                 if (brawler)
+                {
                     return true;
+                }
+
                 if (!preferMelee)
                 {
-                    Trace(newGun.def + " is melee and pawn " + pawn.NameShortColored.RawText + " is better with ranged weapons, ignoring.", true);
+                    Trace(
+                        newGun.def + " is melee and pawn " + pawn.NameShortColored.RawText +
+                        " is better with ranged weapons, ignoring.", true);
                     return false;
                 }
             }
@@ -146,8 +175,43 @@ namespace FindAGunDamnIt
                 return false;
             }
 
+            if (FindAGunDamnItMod.instance.Settings.StayInRange && !hasTheSameTypeOfAccuracy(oldGun, newGun))
+            {
+                Trace(newGun.def + " does not have the same type of accuracy as " + oldGun.def + ", ignoring.", true);
+                return false;
+            }
+
 
             return true;
+        }
+
+        private static bool hasTheSameTypeOfAccuracy(Thing oldGun, Thing newGun)
+        {
+            if (oldGun == null && newGun == null)
+            {
+                return false;
+            }
+
+            if (newGun == null)
+            {
+                return false;
+            }
+
+            if (oldGun == null)
+            {
+                return true;
+            }
+
+            var accuracies = new List<StatDef>
+            {
+                StatDefOf.AccuracyTouch,
+                StatDefOf.AccuracyShort,
+                StatDefOf.AccuracyMedium,
+                StatDefOf.AccuracyLong
+            };
+            var oldBestAccuracy = accuracies.OrderByDescending(def => oldGun.GetStatValue(def)).First();
+
+            return oldBestAccuracy == accuracies.OrderByDescending(def => newGun.GetStatValue(def)).First();
         }
     }
 }

@@ -8,14 +8,22 @@ namespace FindAGunDamnIt
     [StaticConstructorOnStartup]
     public static class Constants
     {
-        public static FieldInfo MinMeleeWeaponDPSThreshold = AccessTools.Field(typeof(JobGiver_PickUpOpportunisticWeapon), "MinMeleeWeaponDPSThreshold");
-        public static MethodInfo ShouldEquip = AccessTools.Method(typeof(JobGiver_PickUpOpportunisticWeapon), "ShouldEquip", new []{typeof(Thing), typeof(Pawn)});
-        
+        public static readonly FieldInfo MinMeleeWeaponDPSThreshold =
+            AccessTools.Field(typeof(JobGiver_PickUpOpportunisticWeapon), "MinMeleeWeaponDPSThreshold");
+
+        public static MethodInfo ShouldEquip = AccessTools.Method(typeof(JobGiver_PickUpOpportunisticWeapon),
+            "ShouldEquip", new[] {typeof(Thing), typeof(Pawn)});
+
         static Constants()
         {
-            if (FindAGunDamnItMod.instance.Settings == null)
+            if (FindAGunDamnItMod.instance.Settings != null)
             {
-                //Log.Message("HighTechLaboratoryFacilities: settings null");
+                return;
+            }
+
+            //Log.Message("HighTechLaboratoryFacilities: settings null");
+            if (FindAGunDamnItMod.instance.Settings != null)
+            {
                 FindAGunDamnItMod.instance.Settings.FindingSetting = FindAGunDamnItMod.findingSettings[0];
             }
         }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>FindAGunDamnIt! (Continued)</name>
   <packageId>Mlie.FindAGunDamnIt</packageId>
@@ -48,6 +48,6 @@ I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY I
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
 [/list]
+
 </description>
 </ModMetaData>
-

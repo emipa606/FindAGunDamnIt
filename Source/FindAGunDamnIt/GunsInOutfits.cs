@@ -21,10 +21,10 @@ namespace FindAGunDamnIt
         {
             Log.Message("Adding guns to outfits");
             var tf = new ThingFilter();
-            tf.SetAllow(ThingCategoryDefOf.Apparel, true, null, null);
-            tf.SetAllow(ThingCategoryDefOf.Weapons, true, null, null);
+            tf.SetAllow(ThingCategoryDefOf.Apparel, true);
+            tf.SetAllow(ThingCategoryDefOf.Weapons, true);
 
-            FieldInfo res = AccessTools.Field(typeof(Dialog_ManageOutfits), "apparelGlobalFilter");
+            var res = AccessTools.Field(typeof(Dialog_ManageOutfits), "apparelGlobalFilter");
 
             res.SetValue(null, tf);
             Log.Message("Guns in outfits!");
@@ -34,11 +34,10 @@ namespace FindAGunDamnIt
     [HarmonyPatch(typeof(OutfitDatabase), "MakeNewOutfit")]
     public static class OutfitDatabase_MakeNewOutfit
     {
-
         [HarmonyPostfix]
-        static void Postfix(ref Outfit __result)
+        private static void Postfix(ref Outfit __result)
         {
-            __result?.filter?.SetAllow(ThingCategoryDefOf.Weapons, true, null, null);
-        } 
+            __result?.filter?.SetAllow(ThingCategoryDefOf.Weapons, true);
+        }
     }
 }
