@@ -8,7 +8,7 @@
       <success>Always</success>
       <operations>
         <li Class="PatchOperationInsert">
-          <xpath>/Defs/ThinkTreeDef[defName = "AndroidLike"]/thinkRoot/subNodes/li[@Class="ThinkNode_SubtreesByTag"]</xpath>
+          <xpath>/Defs/ThinkTreeDef[defName = "AndroidLike"]/thinkRoot/subNodes/li[@Class="ThinkNode_SubtreesByTag" and insertTag="Humanlike_PreMain"]</xpath>
           <value>
             <li Class="FindAGunDamnIt.ThinkNode_ConditionalHunter">
               <subNodes>

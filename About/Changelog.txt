@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.0.7.0 - Should no longer find a gun so aggressive
+
+
 1.0.6.0 - Added setting to only switch between weapons of similar accuracy type
 
 

@@ -8,6 +8,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1541795572
 - Added setting to select how pawns shall look for a weapon
 - Added support for Simple Sidearms
 - Added support for Android Tiers
+- Added an option to only switch to a weapon with similar accuracy-type (long/medium/short/close)
 
 ![Image](https://i.imgur.com/7Gzt3Rg.png)
 
