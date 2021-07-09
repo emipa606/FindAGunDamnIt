@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.0.8.0 - Mod updated for 1.3 and passed autotests
+
+
 1.0.7.0 - Should no longer find a gun so aggressive
 
 

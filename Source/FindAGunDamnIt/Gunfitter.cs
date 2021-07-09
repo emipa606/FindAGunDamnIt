@@ -175,14 +175,13 @@ namespace FindAGunDamnIt
                 return false;
             }
 
-            if (FindAGunDamnItMod.instance.Settings.StayInRange && !hasTheSameTypeOfAccuracy(oldGun, newGun))
+            if (!FindAGunDamnItMod.instance.Settings.StayInRange || hasTheSameTypeOfAccuracy(oldGun, newGun))
             {
-                Trace(newGun.def + " does not have the same type of accuracy as " + oldGun.def + ", ignoring.", true);
-                return false;
+                return true;
             }
 
-
-            return true;
+            Trace(newGun.def + " does not have the same type of accuracy as " + oldGun.def + ", ignoring.", true);
+            return false;
         }
 
         private static bool hasTheSameTypeOfAccuracy(Thing oldGun, Thing newGun)
