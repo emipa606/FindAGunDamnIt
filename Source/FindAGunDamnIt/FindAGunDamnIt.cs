@@ -43,7 +43,7 @@ namespace FindAGunDamnIt
         {
             if (Constants.MinMeleeWeaponDPSThreshold != null)
             {
-                whatAFistCanDo = (float) Constants.MinMeleeWeaponDPSThreshold?.GetValue(this);
+                whatAFistCanDo = (float)Constants.MinMeleeWeaponDPSThreshold?.GetValue(this);
             }
             else
             {

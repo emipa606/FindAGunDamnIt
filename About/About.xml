@@ -12,7 +12,7 @@
   </supportedVersions>
   <modDependencies />
   <loadAfter />
-  <description>[img]https://i.imgur.com/WAEzk68.png[/img]
+  <description>[img]https://i.imgur.com/buuPQel.png[/img]
 Update of AliceTries mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1541795572
 
@@ -21,7 +21,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1541795572
 - Added support for Android Tiers
 - Added an option to only switch to a weapon with similar accuracy-type (long/medium/short/close)
 
-[img]https://i.imgur.com/7Gzt3Rg.png[/img]
+- Reported to not work with Awesome Inventory
+
+[img]https://i.imgur.com/pufA0kM.png[/img]
 
 [table]
 	[tr]
@@ -30,7 +32,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1541795572
 	[/tr]
 [/table]
 	
-[img]https://i.imgur.com/NOW7jU1.png[/img]
+[img]https://i.imgur.com/Z4GOv8H.png[/img]
 
 I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY IF THEY ARE A HUNTER.
         That alert makes me so mad when they are standing on a bow.
@@ -41,7 +43,7 @@ I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY I
         Conditional Checks for the thought tree for if the weapon is in your outfit
 
 
-[img]https://i.imgur.com/Rs6T6cr.png[/img]
+[img]https://i.imgur.com/PwoNOj4.png[/img]
 [list]
 [*] See if the the error persists if you just have this mod and its requirements active.
 [*] If not, try adding your other mods until it happens again.
@@ -50,6 +52,5 @@ I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY I
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
 [/list]
-
 </description>
 </ModMetaData>

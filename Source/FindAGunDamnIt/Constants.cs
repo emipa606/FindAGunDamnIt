@@ -12,7 +12,7 @@ namespace FindAGunDamnIt
             AccessTools.Field(typeof(JobGiver_PickUpOpportunisticWeapon), "MinMeleeWeaponDPSThreshold");
 
         public static MethodInfo ShouldEquip = AccessTools.Method(typeof(JobGiver_PickUpOpportunisticWeapon),
-            "ShouldEquip", new[] {typeof(Thing), typeof(Pawn)});
+            "ShouldEquip", new[] { typeof(Thing), typeof(Pawn) });
 
         static Constants()
         {
