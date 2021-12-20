@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.0.10.0 - Pawns should now consider weapon-filters for equipped weapons as well.
+
+
 1.0.9.0 - New version of 1SettingsHelper
 
 
