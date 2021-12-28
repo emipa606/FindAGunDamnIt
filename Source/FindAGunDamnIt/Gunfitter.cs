@@ -82,7 +82,7 @@ public static class Gunfitter
 
         Trace($"No good gun found for {pawn.NameShortColored.RawText}");
 
-        return bestGun;
+        return null;
     }
 
     private static bool compareGuns(Thing oldGun, Thing newGun,

@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.0.11.0 - Updated VersionFromManifest-file to not get the 'loading is already in progress' error with some mods
+
+
 1.0.10.0 - Pawns should now consider weapon-filters for equipped weapons as well.
 
 
