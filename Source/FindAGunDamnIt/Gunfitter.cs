@@ -11,31 +11,29 @@ namespace FindAGunDamnIt;
 
 public static class Gunfitter
 {
-    public static void Trace(string wtf, bool extra = false)
+    public static void LogMessage(string message)
     {
-#if DEBUG
-            if (!extra)
-                Log.Message("FindAGunDamnIt::" + wtf);
-#endif
-#if EXTRADEBUG
-            if (extra)
-                Log.Message("FindAGunDamnIt::" + wtf);
-#endif
+        if (FindAGunDamnItMod.instance.Settings.VerboseLogging)
+        {
+            Log.Message("[FindAGunDamnIt]: " + message);
+        }
     }
 
     public static bool ShouldEquipByOutfit(Thing thing, Pawn pawn)
     {
         if (thing == null)
         {
+            LogMessage("Thing to check does not exist");
             return false;
         }
 
         if (pawn?.outfits?.CurrentOutfit?.filter?.Allows(thing) == true)
         {
+            LogMessage($"{thing} is allowed in outfit");
             return true;
         }
 
-        Trace($"Not Allowed To Thing : {thing}");
+        LogMessage($"Not Allowed To Thing : {thing}");
         return false;
     }
 
@@ -44,10 +42,11 @@ public static class Gunfitter
     {
         if (guns == null || guns.Count == 0 || pawn == null)
         {
+            LogMessage("Either pawn is unknown or it has no possible guns to choose from.");
             return null;
         }
 
-        Trace($"Fetching current equipped gun (if any) for {pawn.NameShortColored.RawText}");
+        LogMessage($"Fetching current equipped gun (if any) for {pawn.NameShortColored.RawText}");
         Thing originalGun = null;
         if (pawn.equipment?.Primary != null)
         {
@@ -72,15 +71,15 @@ public static class Gunfitter
         {
             if (bestGun == originalGun)
             {
-                Trace($"{bestGun.def} is already the best gun for {pawn.NameShortColored.RawText}");
+                LogMessage($"{bestGun.def} is already the best gun for {pawn.NameShortColored.RawText}");
                 return null;
             }
 
-            Trace($"{bestGun.def} is the best gun for {pawn.NameShortColored.RawText}");
+            LogMessage($"{bestGun.def} is the best gun for {pawn.NameShortColored.RawText}");
             return bestGun;
         }
 
-        Trace($"No good gun found for {pawn.NameShortColored.RawText}");
+        LogMessage($"No good gun found for {pawn.NameShortColored.RawText}");
 
         return null;
     }
@@ -92,21 +91,19 @@ public static class Gunfitter
         var brawler = pawn.story.traits.HasTrait(TraitDefOf.Brawler);
         if (brawler && newGun.def.IsRangedWeapon)
         {
-            Trace($"{newGun.def} is ranged and pawn {pawn.NameShortColored.RawText} is brawler, ignoring.",
-                true);
+            LogMessage($"{newGun.def} is ranged and pawn {pawn.NameShortColored.RawText} is brawler, ignoring.");
             return false;
         }
 
         if (hunter && newGun.def.IsMeleeWeapon)
         {
-            Trace($"{newGun.def} is melee and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.",
-                true);
+            LogMessage($"{newGun.def} is melee and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
             return false;
         }
 
         if (oldGun == null)
         {
-            Trace($"{pawn.NameShortColored.RawText} has no weapon, anything is better.", true);
+            LogMessage($"{pawn.NameShortColored.RawText} has no weapon, anything is better.");
             return true;
         }
 
@@ -124,23 +121,21 @@ public static class Gunfitter
 
         if (hunter && newIsExplosive)
         {
-            Trace($"{newGun.def} is explosive and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.",
-                true);
+            LogMessage($"{newGun.def} is explosive and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
             return false;
         }
 
         if (oldHarmsHealth && !newHarmsHealth)
         {
-            Trace($"{oldGun.def} does actual damage and {newGun.def} does not, ignoring.", true);
+            LogMessage($"{oldGun.def} does actual damage and {newGun.def} does not, ignoring.");
             return false;
         }
 
         if (hunter && (newDamageDef.hediffSkin != null && oldDamageDef.hediffSkin == null
                        || newDamageDef.hediffSolid != null && oldDamageDef.hediffSolid == null))
         {
-            Trace(
-                $"{newGun.def} is some kind of flamethrower/pay and spray weapon and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.",
-                true);
+            LogMessage(
+                $"{newGun.def} is some kind of flamethrower/pay and spray weapon and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
             return false;
         }
 
@@ -155,9 +150,8 @@ public static class Gunfitter
 
             if (preferMelee)
             {
-                Trace(
-                    $"{newGun.def} is ranged and pawn {pawn.NameShortColored.RawText} is better with melee weapons, ignoring.",
-                    true);
+                LogMessage(
+                    $"{newGun.def} is ranged and pawn {pawn.NameShortColored.RawText} is better with melee weapons, ignoring.");
                 return false;
             }
         }
@@ -171,16 +165,15 @@ public static class Gunfitter
 
             if (!preferMelee)
             {
-                Trace(
-                    $"{newGun.def} is melee and pawn {pawn.NameShortColored.RawText} is better with ranged weapons, ignoring.",
-                    true);
+                LogMessage(
+                    $"{newGun.def} is melee and pawn {pawn.NameShortColored.RawText} is better with ranged weapons, ignoring.");
                 return false;
             }
         }
 
         if (newGun.MarketValue <= oldGun.MarketValue)
         {
-            Trace($"{newGun.def} is worth less than {oldGun.def}, ignoring.", true);
+            LogMessage($"{newGun.def} is worth less than {oldGun.def}, ignoring.");
             return false;
         }
 
@@ -189,7 +182,7 @@ public static class Gunfitter
             return true;
         }
 
-        Trace($"{newGun.def} does not have the same type of accuracy as {oldGun.def}, ignoring.", true);
+        LogMessage($"{newGun.def} does not have the same type of accuracy as {oldGun.def}, ignoring.");
         return false;
     }
 

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Content -->
+  <FGD.ssnotice>NOTICE: Simple Sidearms-mod is loaded. Will only be using setting {0} regardless of active setting below.</FGD.ssnotice>
+  <FGD.settingtitle>Finding setting:</FGD.settingtitle>
+  <FGD.keeprange>Try keeping the same effective range</FGD.keeprange>
+  <FGD.keeprange.tooltip>Pawns will try to only upgrade their weapon if the new is best at the same range as their current equipped weapon.</FGD.keeprange.tooltip>
+  <FGD.settingbasic>{0}: Pawns will automatically find an appropriate weapon if they do not have one equipped.</FGD.settingbasic>
+  <FGD.settinghelping>{0}: Same as {1} with the addition that Brawlers and Hunters will replace their equipped weapon if needed.</FGD.settinghelping>
+  <FGD.settingfull>{0}: All pawns will automatically replace their weapon for a better one if possible.</FGD.settingfull>
+  <FGD.settinginfo>Weapon priority is based on weapon-type, value, damage-type and pawn skills/traits.</FGD.settinginfo>
+  <FGD.outfits>Outfits now contain weapons as well and can be used for filtering allowed weapon types.</FGD.outfits>
+  <FGD.verboselogging>Verbose logging</FGD.verboselogging>
+  <FGD.verboselogging.tooltip>Logs all calculations, for finding the cause of issues when debugging</FGD.verboselogging.tooltip>
+  <FGD.version>Installed mod-version: {0}</FGD.version>
+</LanguageData>

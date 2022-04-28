@@ -14,14 +14,16 @@ public static class Constants
     public static MethodInfo ShouldEquip = AccessTools.Method(typeof(JobGiver_PickUpOpportunisticWeapon),
         "ShouldEquip", new[] { typeof(Thing), typeof(Pawn) });
 
+    public static bool SimpleSidearmsLoaded;
+
     static Constants()
     {
+        SimpleSidearmsLoaded = ModLister.HasActiveModWithName("Simple sidearms");
         if (FindAGunDamnItMod.instance.Settings != null)
         {
             return;
         }
 
-        //Log.Message("HighTechLaboratoryFacilities: settings null");
         if (FindAGunDamnItMod.instance.Settings != null)
         {
             FindAGunDamnItMod.instance.Settings.FindingSetting = FindAGunDamnItMod.findingSettings[0];

@@ -9,6 +9,7 @@ namespace FindAGunDamnIt;
 internal class FindAGunDamnItMod : Mod
 {
     public static readonly string[] findingSettings = { "Basic", "Helping", "Full" };
+
     public static FindAGunDamnItMod instance;
     private static string currentVersion;
 
@@ -47,34 +48,32 @@ internal class FindAGunDamnItMod : Mod
         listing_Standard.Gap();
         if (ModLister.HasActiveModWithName("Simple sidearms"))
         {
-            listing_Standard.Label(
-                $"NOTICE: Simple Sidearms-mod is loaded. Will only be using setting {findingSettings[0]} regardless of active setting below.");
+            listing_Standard.Label("FGD.ssnotice".Translate(findingSettings[0]));
         }
 
-        listing_Standard.AddLabeledRadioList("Finding setting:", findingSettings, ref settings.FindingSetting);
+        listing_Standard.AddLabeledRadioList("FGD.settingtitle".Translate(), findingSettings,
+            ref settings.FindingSetting);
         if (settings.FindingSetting == findingSettings[2])
         {
-            listing_Standard.CheckboxLabeled("Try keeping the same effective range", ref settings.StayInRange,
-                "Pawns will try to only upgrade their weapon if the new is best at the same range as their current equipped weapon.");
+            listing_Standard.CheckboxLabeled("FGD.keeprange".Translate(), ref settings.StayInRange,
+                "FGD.keeprange.tooltip".Translate());
         }
 
+        listing_Standard.CheckboxLabeled("FGD.verboselogging".Translate(), ref settings.VerboseLogging,
+            "FGD.verboselogging.tooltip".Translate());
+
         listing_Standard.Gap();
-        listing_Standard.Label(
-            $"{findingSettings[0]}: Pawns will automatically find an appropriate weapon if they do not have one equipped.");
-        listing_Standard.Label(
-            $"{findingSettings[1]}: Same as {findingSettings[0]} with the addition that Brawlers and Hunters will replace their equipped weapon if needed.");
-        listing_Standard.Label(
-            $"{findingSettings[2]}: All pawns will automatically replace their weapon for a better one if possible.");
+        listing_Standard.Label("FGD.settingbasic".Translate(findingSettings[0]));
+        listing_Standard.Label("FGD.settinghelping".Translate(findingSettings[1], findingSettings[0]));
+        listing_Standard.Label("FGD.settingfull".Translate(findingSettings[2]));
         listing_Standard.Gap();
-        listing_Standard.Label(
-            "Weapon priority is based on weapon-type, value, damage-type and pawn skills/traits.");
-        listing_Standard.Label(
-            "Outfits now contain weapons as well and can be used for filtering allowed weapon types.");
+        listing_Standard.Label("FGD.settinginfo".Translate());
+        listing_Standard.Label("FGD.outfits".Translate());
         if (currentVersion != null)
         {
             listing_Standard.Gap();
             GUI.contentColor = Color.gray;
-            listing_Standard.Label($"Installed mod-version: {currentVersion}");
+            listing_Standard.Label("FGD.version".Translate(currentVersion));
             GUI.contentColor = Color.white;
         }
 
