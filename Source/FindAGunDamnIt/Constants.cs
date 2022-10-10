@@ -14,7 +14,7 @@ public static class Constants
     public static MethodInfo ShouldEquip = AccessTools.Method(typeof(JobGiver_PickUpOpportunisticWeapon),
         "ShouldEquip", new[] { typeof(Thing), typeof(Pawn) });
 
-    public static bool SimpleSidearmsLoaded;
+    public static readonly bool SimpleSidearmsLoaded;
 
     static Constants()
     {

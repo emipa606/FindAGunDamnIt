@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.4.1 - Mod updated for 1.4 and passed autotests
+
+
 1.3.2 - Fixed the dropping of certain weapons. Seems it was the vanilla code that did it, added an override.
 
 

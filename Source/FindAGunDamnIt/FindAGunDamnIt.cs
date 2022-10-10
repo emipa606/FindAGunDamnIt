@@ -49,7 +49,7 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
     {
         if (Constants.MinMeleeWeaponDPSThreshold != null)
         {
-            whatAFistCanDo = (float)Constants.MinMeleeWeaponDPSThreshold?.GetValue(this);
+            whatAFistCanDo = (float)Constants.MinMeleeWeaponDPSThreshold?.GetValue(this)!;
         }
         else
         {

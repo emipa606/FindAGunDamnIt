@@ -1,5 +1,4 @@
 ﻿using Mlie;
-using SettingsHelper;
 using UnityEngine;
 using Verse;
 
@@ -51,8 +50,16 @@ internal class FindAGunDamnItMod : Mod
             listing_Standard.Label("FGD.ssnotice".Translate(findingSettings[0]));
         }
 
-        listing_Standard.AddLabeledRadioList("FGD.settingtitle".Translate(), findingSettings,
-            ref settings.FindingSetting);
+        listing_Standard.Label("FGD.settingtitle".Translate());
+        for (var i = 0; i < 3; i++)
+        {
+            if (listing_Standard.RadioButton(findingSettings[i], settings.FindingSetting == findingSettings[i]))
+            {
+                settings.FindingSetting = findingSettings[i];
+            }
+        }
+
+        listing_Standard.Gap();
         if (settings.FindingSetting == findingSettings[2])
         {
             listing_Standard.CheckboxLabeled("FGD.keeprange".Translate(), ref settings.StayInRange,
