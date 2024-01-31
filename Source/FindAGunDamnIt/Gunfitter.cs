@@ -15,7 +15,7 @@ public static class Gunfitter
     {
         if (FindAGunDamnItMod.instance.Settings.VerboseLogging)
         {
-            Log.Message("[FindAGunDamnIt]: " + message);
+            Log.Message($"[FindAGunDamnIt]: {message}");
         }
     }
 
@@ -37,8 +37,7 @@ public static class Gunfitter
         return false;
     }
 
-    public static Thing bestGunForPawn(this JobGiver_PickUpOpportunisticWeapon jobGiver, List<Thing> guns,
-        Pawn pawn)
+    public static Thing bestGunForPawn(List<Thing> guns, Pawn pawn)
     {
         if (guns == null || guns.Count == 0 || pawn == null)
         {

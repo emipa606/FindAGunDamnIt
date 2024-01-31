@@ -1,5 +1,9 @@
 # Changelog for FindAGunDamnIt
 
+1.4.2 - Added setting to ignore temporary guests of the colony (quest lodgers)
+Used DeepL to update translations for ChineseSimplified, French, German
+
+
 1.4.1 - Mod updated for 1.4 and passed autotests
 
 

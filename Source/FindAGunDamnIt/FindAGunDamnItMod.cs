@@ -18,7 +18,7 @@ internal class FindAGunDamnItMod : Mod
     {
         instance = this;
         currentVersion =
-            VersionFromManifest.GetVersionFromModMetaData(ModLister.GetActiveModWithIdentifier("Mlie.FindAGunDamnIt"));
+            VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
 
     internal FindAGunDamnItModSettings Settings
@@ -76,6 +76,10 @@ internal class FindAGunDamnItMod : Mod
         listing_Standard.Gap();
         listing_Standard.Label("FGD.settinginfo".Translate());
         listing_Standard.Label("FGD.outfits".Translate());
+
+        listing_Standard.Gap();
+        listing_Standard.CheckboxLabeled("FGD.noTemporaryPawns".Translate(), ref settings.NoColonyGuests,
+            "FGD.noTemporaryPawnsDesc".Translate());
         if (currentVersion != null)
         {
             listing_Standard.Gap();

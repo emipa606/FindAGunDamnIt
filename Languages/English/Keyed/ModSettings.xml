@@ -13,4 +13,6 @@
   <FGD.verboselogging>Verbose logging</FGD.verboselogging>
   <FGD.verboselogging.tooltip>Logs all calculations, for finding the cause of issues when debugging</FGD.verboselogging.tooltip>
   <FGD.version>Installed mod-version: {0}</FGD.version>
+  <FGD.noTemporaryPawns>Not temporary colonists</FGD.noTemporaryPawns>
+  <FGD.noTemporaryPawnsDesc>Guests of the colony will not auto-equip weapons</FGD.noTemporaryPawnsDesc>
 </LanguageData>
