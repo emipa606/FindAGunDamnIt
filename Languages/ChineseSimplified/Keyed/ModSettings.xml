@@ -16,4 +16,6 @@
   <FGD.version>已安装模块版本：{0}</FGD.version>
   <FGD.noTemporaryPawns>不是临时殖民者</FGD.noTemporaryPawns>
   <FGD.noTemporaryPawnsDesc>殖民地的客人不会自动装备武器</FGD.noTemporaryPawnsDesc>
+  <FGD.ignoreprice>忽略武器的价值</FGD.ignoreprice>
+  <FGD.ignoreprice.tooltip>当选择更好的武器装备时，棋子不会考虑武器的价值</FGD.ignoreprice.tooltip>
 </LanguageData>

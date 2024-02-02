@@ -16,4 +16,6 @@
   <FGD.version>Installierte Mod-Version: {0}</FGD.version>
   <FGD.noTemporaryPawns>Keine temporären Kolonisten</FGD.noTemporaryPawns>
   <FGD.noTemporaryPawnsDesc>Gäste der Kolonie werden nicht automatisch Waffen ausrüsten</FGD.noTemporaryPawnsDesc>
+  <FGD.ignoreprice>Wert der Waffe ignorieren</FGD.ignoreprice>
+  <FGD.ignoreprice.tooltip>Die Bauern berücksichtigen den Wert der Waffe nicht, wenn sie eine bessere Waffe zum Ausrüsten wählen</FGD.ignoreprice.tooltip>
 </LanguageData>

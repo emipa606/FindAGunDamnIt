@@ -64,6 +64,8 @@ internal class FindAGunDamnItMod : Mod
         {
             listing_Standard.CheckboxLabeled("FGD.keeprange".Translate(), ref settings.StayInRange,
                 "FGD.keeprange.tooltip".Translate());
+            listing_Standard.CheckboxLabeled("FGD.ignoreprice".Translate(), ref settings.IgnorePrice,
+                "FGD.ignoreprice.tooltip".Translate());
         }
 
         listing_Standard.CheckboxLabeled("FGD.verboselogging".Translate(), ref settings.VerboseLogging,

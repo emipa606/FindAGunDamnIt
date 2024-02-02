@@ -16,4 +16,6 @@
   <FGD.version>Version installée du mod : {0}</FGD.version>
   <FGD.noTemporaryPawns>Pas des colons temporaires</FGD.noTemporaryPawns>
   <FGD.noTemporaryPawnsDesc>Les invités de la colonie n'auront pas d'armement automatique.</FGD.noTemporaryPawnsDesc>
+  <FGD.ignoreprice>Ignorer la valeur de l'arme</FGD.ignoreprice>
+  <FGD.ignoreprice.tooltip>Les pions ne tiendront pas compte de la valeur de l'arme lorsqu'ils choisiront une meilleure arme à équiper.</FGD.ignoreprice.tooltip>
 </LanguageData>

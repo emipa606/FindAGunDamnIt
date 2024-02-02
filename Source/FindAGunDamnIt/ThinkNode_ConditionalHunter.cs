@@ -16,9 +16,32 @@ public class ThinkNode_ConditionalHunter : ThinkNode_Conditional
             return true;
         }
 
-        if (FindAGunDamnItMod.instance.Settings.NoColonyGuests && pawn.GuestStatus == GuestStatus.Guest)
+        if (FindAGunDamnItMod.instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
         {
             Gunfitter.LogMessage($"{pawn} is a guest, ignoring.");
+            return true;
+        }
+
+        if (pawn.equipment == null && pawn.apparel == null)
+        {
+            Gunfitter.LogMessage($"{pawn} has no equipment settings.");
+            return true;
+        }
+
+        if (pawn.RaceProps.Humanlike && pawn.WorkTagIsDisabled(WorkTags.Violent))
+        {
+            Gunfitter.LogMessage($"{pawn} is incapable of violence.");
+            return true;
+        }
+
+        if (!pawn.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation))
+        {
+            Gunfitter.LogMessage($"{pawn} can not manipulate things.");
+            return true;
+        }
+
+        if (pawn.GetRegion() == null)
+        {
             return true;
         }
 
@@ -35,6 +58,7 @@ public class ThinkNode_ConditionalHunter : ThinkNode_Conditional
         }
 
         i++;
+
         i %= 2579 + 579 + 7;
         var returnValue = i % (2579 + (pawn.Name.GetHashCode() % 579)) != 0;
 

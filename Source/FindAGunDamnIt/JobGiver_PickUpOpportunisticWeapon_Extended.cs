@@ -21,6 +21,7 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
         }
     }
 
+
     protected override Job TryGiveJob(Pawn pawn)
     {
         var jobToReturn = base.TryGiveJob(pawn);
@@ -43,13 +44,13 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
             return null;
         }
 
-        if (FindAGunDamnItMod.instance.Settings.NoColonyGuests && pawn.IsQuestLodger())
+        if (FindAGunDamnItMod.instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
         {
             Gunfitter.LogMessage($"{pawn} is a guest, ignoring.");
             return null;
         }
 
-        if (pawn.equipment == null)
+        if (pawn.equipment == null && pawn.apparel == null)
         {
             Gunfitter.LogMessage($"{pawn} has no equipment settings.");
             return null;
@@ -67,7 +68,13 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
             return null;
         }
 
-        if (pawn.equipment?.Primary != null)
+        if (pawn.GetRegion() == null)
+        {
+            return null;
+        }
+
+        var currentGun = pawn.equipment?.Primary;
+        if (currentGun != null)
         {
             if (FindAGunDamnItMod.instance.Settings.FindingSetting == FindAGunDamnItMod.findingSettings[0] ||
                 Constants.SimpleSidearmsLoaded)
@@ -77,7 +84,6 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
                 return null;
             }
 
-            var currentGun = pawn.equipment.Primary;
             if (FindAGunDamnItMod.instance.Settings.FindingSetting == FindAGunDamnItMod.findingSettings[1])
             {
                 var hunter = pawn.workSettings.WorkIsActive(WorkTypeDefOf.Hunting);
@@ -99,6 +105,11 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
         }
 
         var list = pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.Weapon);
+        if (currentGun != null)
+        {
+            list.Add(currentGun);
+        }
+
         var allowedGuns = new List<Thing>();
         for (var j = 0; j < list?.Count; j++)
         {
@@ -110,34 +121,40 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
 
             if (gun.IsForbidden(pawn))
             {
-                Gunfitter.LogMessage($"{gun.def} forbidden, ignoring");
+                Gunfitter.LogMessage($"{gun} forbidden, ignoring");
                 continue;
             }
 
             if (gun.def.IsMeleeWeapon && gun.GetStatValue(StatDefOf.MeleeWeapon_AverageDPS) < whatAFistCanDo)
             {
-                Gunfitter.LogMessage($"{gun.def} is melee and has lower dps than a fist, ignoring");
+                Gunfitter.LogMessage($"{gun} is melee and has lower dps than a fist, ignoring");
                 continue;
             }
 
             if (!Gunfitter.ShouldEquipByOutfit(gun, pawn))
             {
-                Gunfitter.LogMessage($"{gun.def} is not allowed in the pawns outfit-settings, ignoring");
+                Gunfitter.LogMessage($"{gun} is not allowed in the pawns outfit-settings, ignoring");
                 continue;
             }
 
             if (!pawn.CanReserveAndReach(gun, PathEndMode.OnCell, Danger.None))
             {
-                Gunfitter.LogMessage($"{gun.def} can not be reached, ignoring");
+                Gunfitter.LogMessage($"{gun} can not be reached, ignoring");
                 continue;
             }
 
-            Gunfitter.LogMessage($"{pawn} can equip {gun.def}");
+            if (gun.ParentHolder is Pawn_EquipmentTracker tracker && tracker.pawn != pawn)
+            {
+                Gunfitter.LogMessage($"{gun} is used by {tracker.pawn} already, ignoring");
+                continue;
+            }
+
+            Gunfitter.LogMessage($"{pawn} can equip {gun}");
             allowedGuns.Add(gun);
         }
 
         var bestGun = Gunfitter.bestGunForPawn(allowedGuns, pawn);
-        if (bestGun == null)
+        if (bestGun == null || currentGun == bestGun)
         {
             Gunfitter.LogMessage($"{pawn} found no fitting gun.");
             return null;
@@ -145,11 +162,11 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
 
         if (Prefs.DevMode)
         {
-            Log.Message($"FindAGunDamnIt: {pawn} will equip {bestGun.def}");
+            Log.Message($"FindAGunDamnIt: {pawn} will equip {bestGun}");
         }
         else
         {
-            Gunfitter.LogMessage($"{pawn} will equip {bestGun.def}");
+            Gunfitter.LogMessage($"{pawn} will equip {bestGun}");
         }
 
         return new Job(JobDefOf.Equip, bestGun);

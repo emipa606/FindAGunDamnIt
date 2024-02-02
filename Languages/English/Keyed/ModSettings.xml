@@ -5,6 +5,8 @@
   <FGD.settingtitle>Finding setting:</FGD.settingtitle>
   <FGD.keeprange>Try keeping the same effective range</FGD.keeprange>
   <FGD.keeprange.tooltip>Pawns will try to only upgrade their weapon if the new is best at the same range as their current equipped weapon.</FGD.keeprange.tooltip>
+  <FGD.ignoreprice>Ignore value of weapon</FGD.ignoreprice>
+  <FGD.ignoreprice.tooltip>Pawns will not consider the value of the weapon when selecting a better weapon to equip</FGD.ignoreprice.tooltip>
   <FGD.settingbasic>{0}: Pawns will automatically find an appropriate weapon if they do not have one equipped.</FGD.settingbasic>
   <FGD.settinghelping>{0}: Same as {1} with the addition that Brawlers and Hunters will replace their equipped weapon if needed.</FGD.settinghelping>
   <FGD.settingfull>{0}: All pawns will automatically replace their weapon for a better one if possible.</FGD.settingfull>

@@ -70,11 +70,11 @@ public static class Gunfitter
         {
             if (bestGun == originalGun)
             {
-                LogMessage($"{bestGun.def} is already the best gun for {pawn.NameShortColored.RawText}");
+                LogMessage($"{bestGun} is already the best gun for {pawn.NameShortColored.RawText}");
                 return null;
             }
 
-            LogMessage($"{bestGun.def} is the best gun for {pawn.NameShortColored.RawText}");
+            LogMessage($"{bestGun} is the best gun for {pawn.NameShortColored.RawText}");
             return bestGun;
         }
 
@@ -120,13 +120,13 @@ public static class Gunfitter
 
         if (hunter && newIsExplosive)
         {
-            LogMessage($"{newGun.def} is explosive and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
+            LogMessage($"{newGun} is explosive and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
             return false;
         }
 
         if (oldHarmsHealth && !newHarmsHealth)
         {
-            LogMessage($"{oldGun.def} does actual damage and {newGun.def} does not, ignoring.");
+            LogMessage($"{oldGun} does actual damage and {newGun} does not, ignoring.");
             return false;
         }
 
@@ -134,7 +134,7 @@ public static class Gunfitter
                        || newDamageDef.hediffSolid != null && oldDamageDef.hediffSolid == null))
         {
             LogMessage(
-                $"{newGun.def} is some kind of flamethrower/pay and spray weapon and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
+                $"{newGun} is some kind of flamethrower/pay and spray weapon and pawn {pawn.NameShortColored.RawText} is hunter, ignoring.");
             return false;
         }
 
@@ -150,7 +150,7 @@ public static class Gunfitter
             if (preferMelee)
             {
                 LogMessage(
-                    $"{newGun.def} is ranged and pawn {pawn.NameShortColored.RawText} is better with melee weapons, ignoring.");
+                    $"{newGun} is ranged and pawn {pawn.NameShortColored.RawText} is better with melee weapons, ignoring.");
                 return false;
             }
         }
@@ -165,14 +165,14 @@ public static class Gunfitter
             if (!preferMelee)
             {
                 LogMessage(
-                    $"{newGun.def} is melee and pawn {pawn.NameShortColored.RawText} is better with ranged weapons, ignoring.");
+                    $"{newGun} is melee and pawn {pawn.NameShortColored.RawText} is better with ranged weapons, ignoring.");
                 return false;
             }
         }
 
-        if (newGun.MarketValue <= oldGun.MarketValue)
+        if (FindAGunDamnItMod.instance.Settings.IgnorePrice && newGun.MarketValue <= oldGun.MarketValue)
         {
-            LogMessage($"{newGun.def} is worth less than {oldGun.def}, ignoring.");
+            LogMessage($"{newGun} is worth less than {oldGun}, ignoring.");
             return false;
         }
 
@@ -181,7 +181,7 @@ public static class Gunfitter
             return true;
         }
 
-        LogMessage($"{newGun.def} does not have the same type of accuracy as {oldGun.def}, ignoring.");
+        LogMessage($"{newGun} does not have the same type of accuracy as {oldGun}, ignoring.");
         return false;
     }
 

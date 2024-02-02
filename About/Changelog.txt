@@ -1,5 +1,11 @@
 # Changelog for FindAGunDamnIt
 
+1.4.3 - All quest-pawns should now be considered temporary pawns
+Added option to ignore weapon value when deciding on switching weapon
+Pawns should no longer try to equip weapons already equipped by others
+Used DeepL to update translations for ChineseSimplified, French, German
+
+
 1.4.2 - Added setting to ignore temporary guests of the colony (quest lodgers)
 Used DeepL to update translations for ChineseSimplified, French, German
 
