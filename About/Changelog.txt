@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.5.0 - Mod updated for 1.5 and passed autotests
+
+
 1.4.3 - All quest-pawns should now be considered temporary pawns
 Added option to ignore weapon value when deciding on switching weapon
 Pawns should no longer try to equip weapons already equipped by others

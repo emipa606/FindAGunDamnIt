@@ -12,7 +12,7 @@ public static class Constants
         AccessTools.Field(typeof(JobGiver_PickUpOpportunisticWeapon), "MinMeleeWeaponDPSThreshold");
 
     public static MethodInfo ShouldEquip = AccessTools.Method(typeof(JobGiver_PickUpOpportunisticWeapon),
-        "ShouldEquip", new[] { typeof(Thing), typeof(Pawn) });
+        "ShouldEquip", [typeof(Thing), typeof(Pawn)]);
 
     public static readonly bool SimpleSidearmsLoaded;
 

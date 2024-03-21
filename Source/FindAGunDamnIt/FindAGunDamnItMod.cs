@@ -7,7 +7,7 @@ namespace FindAGunDamnIt;
 [StaticConstructorOnStartup]
 internal class FindAGunDamnItMod : Mod
 {
-    public static readonly string[] findingSettings = { "Basic", "Helping", "Full" };
+    public static readonly string[] findingSettings = ["Basic", "Helping", "Full"];
 
     public static FindAGunDamnItMod instance;
     private static string currentVersion;

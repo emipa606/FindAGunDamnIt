@@ -27,7 +27,7 @@ public static class Gunfitter
             return false;
         }
 
-        if (pawn?.outfits?.CurrentOutfit?.filter?.Allows(thing) == true)
+        if (pawn?.outfits?.CurrentApparelPolicy?.filter?.Allows(thing) == true)
         {
             LogMessage($"{thing} is allowed in outfit");
             return true;
