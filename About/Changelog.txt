@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.5.1 - Added missing harmony requirement
+
+
 1.5.0 - Mod updated for 1.5 and passed autotests
 
 
