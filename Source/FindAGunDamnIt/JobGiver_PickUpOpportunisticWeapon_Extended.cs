@@ -149,6 +149,12 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
                 continue;
             }
 
+            if (gun.def.modExtensions?.Any(extension => extension.GetType().Name == "HeavyWeapon") == true)
+            {
+                Gunfitter.LogMessage($"{gun} is heavy, ignoring");
+                continue;
+            }
+
             Gunfitter.LogMessage($"{pawn} can equip {gun}");
             allowedGuns.Add(gun);
         }
