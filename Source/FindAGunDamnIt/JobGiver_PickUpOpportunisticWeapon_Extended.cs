@@ -104,16 +104,15 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
             }
         }
 
-        var list = pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.Weapon);
+        var list = new List<Thing>(pawn.Map.listerThings.ThingsInGroup(ThingRequestGroup.Weapon));
         if (currentGun != null)
         {
             list.Add(currentGun);
         }
 
         var allowedGuns = new List<Thing>();
-        for (var j = 0; j < list?.Count; j++)
+        foreach (var gun in list)
         {
-            var gun = list[j];
             if (gun == null)
             {
                 continue;

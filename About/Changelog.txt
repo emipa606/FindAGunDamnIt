@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.5.3 - Should no longer cause error when no weapons exist on the map
+
+
 1.5.2 - Should now ignore heavy weapons
 
 
