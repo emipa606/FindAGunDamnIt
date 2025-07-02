@@ -37,6 +37,6 @@ I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY I
 -  If you have the solution for a problem, please post it to the GitHub repository.
 -  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
-
-[![Image](https://img.shields.io/github/v/release/emipa606/FindAGunDamnIt?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2089553836)
+[![Image](https://img.shields.io/github/v/release/emipa606/FindAGunDamnIt?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2089553836) | tags:  inventory management

@@ -13,7 +13,7 @@ public static class Gunfitter
 {
     public static void LogMessage(string message)
     {
-        if (FindAGunDamnItMod.instance.Settings.VerboseLogging)
+        if (FindAGunDamnItMod.Instance.Settings.VerboseLogging)
         {
             Log.Message($"[FindAGunDamnIt]: {message}");
         }
@@ -37,7 +37,7 @@ public static class Gunfitter
         return false;
     }
 
-    public static Thing bestGunForPawn(List<Thing> guns, Pawn pawn)
+    public static Thing BestGunForPawn(List<Thing> guns, Pawn pawn)
     {
         if (guns == null || guns.Count == 0 || pawn == null)
         {
@@ -170,13 +170,13 @@ public static class Gunfitter
             }
         }
 
-        if (FindAGunDamnItMod.instance.Settings.IgnorePrice && newGun.MarketValue <= oldGun.MarketValue)
+        if (FindAGunDamnItMod.Instance.Settings.IgnorePrice && newGun.MarketValue <= oldGun.MarketValue)
         {
             LogMessage($"{newGun} is worth less than {oldGun}, ignoring.");
             return false;
         }
 
-        if (!FindAGunDamnItMod.instance.Settings.StayInRange || hasTheSameTypeOfAccuracy(oldGun, newGun))
+        if (!FindAGunDamnItMod.Instance.Settings.StayInRange || hasTheSameTypeOfAccuracy(oldGun, newGun))
         {
             return true;
         }

@@ -7,16 +7,16 @@ namespace FindAGunDamnIt;
 [StaticConstructorOnStartup]
 internal class FindAGunDamnItMod : Mod
 {
-    public static readonly string[] findingSettings = ["Basic", "Helping", "Full"];
+    public static readonly string[] FindingSettings = ["Basic", "Helping", "Full"];
 
-    public static FindAGunDamnItMod instance;
+    public static FindAGunDamnItMod Instance;
     private static string currentVersion;
 
     private FindAGunDamnItModSettings settings;
 
     public FindAGunDamnItMod(ModContentPack content) : base(content)
     {
-        instance = this;
+        Instance = this;
         currentVersion =
             VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
@@ -25,14 +25,10 @@ internal class FindAGunDamnItMod : Mod
     {
         get
         {
-            if (settings == null)
-            {
-                settings = GetSettings<FindAGunDamnItModSettings>();
-            }
+            settings ??= GetSettings<FindAGunDamnItModSettings>();
 
             return settings;
         }
-        set => settings = value;
     }
 
     public override string SettingsCategory()
@@ -42,55 +38,55 @@ internal class FindAGunDamnItMod : Mod
 
     public override void DoSettingsWindowContents(Rect rect)
     {
-        var listing_Standard = new Listing_Standard();
-        listing_Standard.Begin(rect);
-        listing_Standard.Gap();
+        var listingStandard = new Listing_Standard();
+        listingStandard.Begin(rect);
+        listingStandard.Gap();
         if (ModLister.HasActiveModWithName("Simple sidearms"))
         {
-            listing_Standard.Label("FGD.ssnotice".Translate(findingSettings[0]));
+            listingStandard.Label("FGD.ssnotice".Translate(FindingSettings[0]));
         }
 
-        listing_Standard.Label("FGD.settingtitle".Translate());
+        listingStandard.Label("FGD.settingtitle".Translate());
         for (var i = 0; i < 3; i++)
         {
-            if (listing_Standard.RadioButton(findingSettings[i], settings.FindingSetting == findingSettings[i]))
+            if (listingStandard.RadioButton(FindingSettings[i], settings.FindingSetting == FindingSettings[i]))
             {
-                settings.FindingSetting = findingSettings[i];
+                settings.FindingSetting = FindingSettings[i];
             }
         }
 
-        listing_Standard.Gap();
-        if (settings.FindingSetting == findingSettings[2])
+        listingStandard.Gap();
+        if (settings.FindingSetting == FindingSettings[2])
         {
-            listing_Standard.CheckboxLabeled("FGD.keeprange".Translate(), ref settings.StayInRange,
+            listingStandard.CheckboxLabeled("FGD.keeprange".Translate(), ref settings.StayInRange,
                 "FGD.keeprange.tooltip".Translate());
-            listing_Standard.CheckboxLabeled("FGD.ignoreprice".Translate(), ref settings.IgnorePrice,
+            listingStandard.CheckboxLabeled("FGD.ignoreprice".Translate(), ref settings.IgnorePrice,
                 "FGD.ignoreprice.tooltip".Translate());
         }
 
-        listing_Standard.CheckboxLabeled("FGD.verboselogging".Translate(), ref settings.VerboseLogging,
+        listingStandard.CheckboxLabeled("FGD.verboselogging".Translate(), ref settings.VerboseLogging,
             "FGD.verboselogging.tooltip".Translate());
 
-        listing_Standard.Gap();
-        listing_Standard.Label("FGD.settingbasic".Translate(findingSettings[0]));
-        listing_Standard.Label("FGD.settinghelping".Translate(findingSettings[1], findingSettings[0]));
-        listing_Standard.Label("FGD.settingfull".Translate(findingSettings[2]));
-        listing_Standard.Gap();
-        listing_Standard.Label("FGD.settinginfo".Translate());
-        listing_Standard.Label("FGD.outfits".Translate());
+        listingStandard.Gap();
+        listingStandard.Label("FGD.settingbasic".Translate(FindingSettings[0]));
+        listingStandard.Label("FGD.settinghelping".Translate(FindingSettings[1], FindingSettings[0]));
+        listingStandard.Label("FGD.settingfull".Translate(FindingSettings[2]));
+        listingStandard.Gap();
+        listingStandard.Label("FGD.settinginfo".Translate());
+        listingStandard.Label("FGD.outfits".Translate());
 
-        listing_Standard.Gap();
-        listing_Standard.CheckboxLabeled("FGD.noTemporaryPawns".Translate(), ref settings.NoColonyGuests,
+        listingStandard.Gap();
+        listingStandard.CheckboxLabeled("FGD.noTemporaryPawns".Translate(), ref settings.NoColonyGuests,
             "FGD.noTemporaryPawnsDesc".Translate());
         if (currentVersion != null)
         {
-            listing_Standard.Gap();
+            listingStandard.Gap();
             GUI.contentColor = Color.gray;
-            listing_Standard.Label("FGD.version".Translate(currentVersion));
+            listingStandard.Label("FGD.version".Translate(currentVersion));
             GUI.contentColor = Color.white;
         }
 
-        listing_Standard.End();
+        listingStandard.End();
         Settings.Write();
     }
 }

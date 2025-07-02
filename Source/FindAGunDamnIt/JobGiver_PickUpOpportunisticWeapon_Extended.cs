@@ -31,12 +31,12 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
         }
 
         Gunfitter.LogMessage($"{pawn} will try to find a good weapon.");
-        jobToReturn = TryOutfit(pawn);
+        jobToReturn = tryOutfit(pawn);
 
         return jobToReturn;
     }
 
-    private Job TryOutfit(Pawn pawn)
+    private Job tryOutfit(Pawn pawn)
     {
         if (!pawn.IsColonist || pawn.Drafted)
         {
@@ -44,7 +44,7 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
             return null;
         }
 
-        if (FindAGunDamnItMod.instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
+        if (FindAGunDamnItMod.Instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
         {
             Gunfitter.LogMessage($"{pawn} is a guest, ignoring.");
             return null;
@@ -76,29 +76,29 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
         var currentGun = pawn.equipment?.Primary;
         if (currentGun != null)
         {
-            if (FindAGunDamnItMod.instance.Settings.FindingSetting == FindAGunDamnItMod.findingSettings[0] ||
+            if (FindAGunDamnItMod.Instance.Settings.FindingSetting == FindAGunDamnItMod.FindingSettings[0] ||
                 Constants.SimpleSidearmsLoaded)
             {
                 Gunfitter.LogMessage(
-                    $"{pawn} has a weapon and simple sidearms is loaded or setting is {FindAGunDamnItMod.findingSettings[0]}, will not evaluate new guns.");
+                    $"{pawn} has a weapon and simple sidearms is loaded or setting is {FindAGunDamnItMod.FindingSettings[0]}, will not evaluate new guns.");
                 return null;
             }
 
-            if (FindAGunDamnItMod.instance.Settings.FindingSetting == FindAGunDamnItMod.findingSettings[1])
+            if (FindAGunDamnItMod.Instance.Settings.FindingSetting == FindAGunDamnItMod.FindingSettings[1])
             {
                 var hunter = pawn.workSettings.WorkIsActive(WorkTypeDefOf.Hunting);
                 var brawler = pawn.story.traits.HasTrait(TraitDefOf.Brawler);
                 if (!hunter && !brawler)
                 {
                     Gunfitter.LogMessage(
-                        $"{pawn} is not brawler or hunter and setting is {FindAGunDamnItMod.findingSettings[1]}, will not evaluate new guns.");
+                        $"{pawn} is not brawler or hunter and setting is {FindAGunDamnItMod.FindingSettings[1]}, will not evaluate new guns.");
                     return null;
                 }
 
                 if (brawler && currentGun.def.IsMeleeWeapon || hunter && currentGun.def.IsRangedWeapon)
                 {
                     Gunfitter.LogMessage(
-                        $"{pawn} is brawler or hunter with an appropriate weapon and setting is {FindAGunDamnItMod.findingSettings[1]}, will not evaluate new guns.");
+                        $"{pawn} is brawler or hunter with an appropriate weapon and setting is {FindAGunDamnItMod.FindingSettings[1]}, will not evaluate new guns.");
                     return null;
                 }
             }
@@ -158,7 +158,7 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
             allowedGuns.Add(gun);
         }
 
-        var bestGun = Gunfitter.bestGunForPawn(allowedGuns, pawn);
+        var bestGun = Gunfitter.BestGunForPawn(allowedGuns, pawn);
         if (bestGun == null || currentGun == bestGun)
         {
             Gunfitter.LogMessage($"{pawn} found no fitting gun.");

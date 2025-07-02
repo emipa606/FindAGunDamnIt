@@ -3,7 +3,7 @@ using RimWorld;
 
 namespace FindAGunDamnIt;
 
-[HarmonyPatch(typeof(OutfitDatabase), "MakeNewOutfit")]
+[HarmonyPatch(typeof(OutfitDatabase), nameof(OutfitDatabase.MakeNewOutfit))]
 public static class OutfitDatabase_MakeNewOutfit
 {
     [HarmonyPostfix]

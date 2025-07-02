@@ -10,15 +10,14 @@ public static class GunsInOutfits
 {
     static GunsInOutfits()
     {
-        DoTheDo();
+        doTheDo();
 
         //harmony
         new Harmony("Guns.In.Outfits").PatchAll(Assembly.GetExecutingAssembly());
     }
 
-    private static void DoTheDo()
+    private static void doTheDo()
     {
-        Log.Message("Adding guns to outfits");
         var tf = new ThingFilter();
         tf.SetAllow(ThingCategoryDefOf.Apparel, true);
         tf.SetAllow(ThingCategoryDefOf.Weapons, true);
@@ -26,6 +25,5 @@ public static class GunsInOutfits
         var res = AccessTools.Field(typeof(Dialog_ManageApparelPolicies), "apparelGlobalFilter");
 
         res.SetValue(null, tf);
-        Log.Message("Guns in outfits!");
     }
 }

@@ -16,7 +16,7 @@ public class ThinkNode_ConditionalHunter : ThinkNode_Conditional
             return true;
         }
 
-        if (FindAGunDamnItMod.instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
+        if (FindAGunDamnItMod.Instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
         {
             Gunfitter.LogMessage($"{pawn} is a guest, ignoring.");
             return true;

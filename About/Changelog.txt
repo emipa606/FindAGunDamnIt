@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.6.0 - Mod updated for 1.6 and passed autotests
+
+
 1.5.3 - Should no longer cause error when no weapons exist on the map
 
 
