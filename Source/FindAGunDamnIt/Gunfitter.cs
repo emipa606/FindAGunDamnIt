@@ -27,6 +27,12 @@ public static class Gunfitter
             return false;
         }
 
+        if (!EquipmentUtility.CanEquip(thing, pawn, out var reason))
+        {
+            LogMessage(reason);
+            return false;
+        }
+
         if (pawn?.outfits?.CurrentApparelPolicy?.filter?.Allows(thing) == true)
         {
             LogMessage($"{thing} is allowed in outfit");

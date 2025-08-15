@@ -4,11 +4,12 @@
   "CanRemove": "0",
   "PreviewVersion": "1.6",
   "SocialImageSet": true,
-  "LastXmlCleaning": "2025-07-02T20:14:01.0619478+02:00",
+  "LastXmlCleaning": "2025-08-15T21:29:38.7703547+02:00",
   "Patches": true,
   "Defs": false,
   "Assemblies": true,
-  "LinesOfCode": 21522.0,
-  "LinesOfXML": 1296.0,
-  "SearchTags": " inventory management"
+  "LinesOfCode": 21676,
+  "LinesOfXML": 1296,
+  "SearchTags": " inventory management",
+  "CodeBaseSize": 69
 }
