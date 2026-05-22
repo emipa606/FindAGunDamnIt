@@ -6,4 +6,14 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="FindAGunDamnIt/FindAGunDamnIt.csproj" />
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/ModSettings.xml" />
+  </Folder>
+  <Folder Name="/XML/Patches/">
+    <File Path="../Patches/PatchThoughts_AndroidTiers.xml" />
+    <File Path="../Patches/PatchThoughts.xml" />
+  </Folder>
 </Solution>

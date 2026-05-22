@@ -1,6 +1,6 @@
 # [FindAGunDamnIt! (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=2089553836)
 
-![Image](https://i.imgur.com/buuPQel.png)
+![Image](https://img.litet.net/logos/Info.png)
 
 Update of AliceTries mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1541795572
@@ -12,9 +12,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1541795572
 
 - Reported to not work with Awesome Inventory
 
-![Image](https://i.imgur.com/pufA0kM.png)
+![Image](https://img.litet.net/logos/Notice.png)
 	
-![Image](https://i.imgur.com/Z4GOv8H.png)
+![Image](https://img.litet.net/logos/OriginalDescription.png)
 
 I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY IF THEY ARE A HUNTER.
         That alert makes me so mad when they are standing on a bow.
@@ -25,13 +25,13 @@ I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY I
         Conditional Checks for the thought tree for if the weapon is in your outfit
 
 
-![Image](https://i.imgur.com/PwoNOj4.png)
+![Image](https://img.litet.net/logos/ReportingIssues.png)
 
 
 
 -  See if the the error persists if you just have this mod and its requirements active.
 -  If not, try adding your other mods until it happens again.
--  Post your error-log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) or the standalone [Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404) and command Ctrl+F12
+-  Always post your log using the [Log Uploader](https://steamcommunity.com/sharedfiles/filedetails/?id=2873415404)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
@@ -39,4 +39,4 @@ I just want my pawns to find a dang weapon and not ask me about it, ESPECIALLY I
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/FindAGunDamnIt?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2089553836) | tags:  inventory management
+[![Image](https://img.shields.io/github/v/release/emipa606/FindAGunDamnIt?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2089553836) | tags: inventory management

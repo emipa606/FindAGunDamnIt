@@ -44,9 +44,9 @@ public class JobGiver_PickUpOpportunisticWeapon_Extended : JobGiver_PickUpOpport
             return null;
         }
 
-        if (FindAGunDamnItMod.Instance.Settings.NoColonyGuests && pawn.questTags?.Any() == true)
+        if (FindAGunDamnItMod.Instance.Settings.NoColonyGuests && pawn.IsQuestLodger())
         {
-            Gunfitter.LogMessage($"{pawn} is a guest, ignoring.");
+            Gunfitter.LogMessage($"{pawn} is a temporary quest pawn, ignoring.");
             return null;
         }
 

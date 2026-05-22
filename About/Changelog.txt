@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.6.2 - Temporary colonists should not switch weapons
+
+
 1.6.1 - Should not be possible to autoequip biocoded weapons if not the owner
 
 
