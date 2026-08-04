@@ -176,7 +176,7 @@ public static class Gunfitter
             }
         }
 
-        if (FindAGunDamnItMod.Instance.Settings.IgnorePrice && newGun.MarketValue <= oldGun.MarketValue)
+        if (!FindAGunDamnItMod.Instance.Settings.IgnorePrice && newGun.MarketValue <= oldGun.MarketValue)
         {
             LogMessage($"{newGun} is worth less than {oldGun}, ignoring.");
             return false;
