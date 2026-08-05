@@ -1,44 +1,55 @@
-# GitHub Copilot Instructions for FindAGunDamnIt! (Continued) Mod
+# Copilot Instructions for FindAGunDamnIt! (Continued) Mod Development
 
 ## Mod Overview and Purpose
 
-**Mod Name**: FindAGunDamnIt! (Continued)
+**FindAGunDamnIt! (Continued)** is a RimWorld mod initially developed by AliceTries, now updated and maintained. The core aim is to streamline the process by which pawns, particularly hunters, autonomously locate and equip weapons without player intervention. The mod ensures that emergencies like the "hunter lacks a weapon" alert are addressed efficiently, allowing for a smoother gameplay experience.
 
-**Description**: This mod is an update of the original mod by AliceTries. It aims to simplify the process of pawns acquiring weapons in RimWorld, especially for roles like hunters. The mod automatically equips pawns with nearby weapons, addressing the frustrating alert when a hunter lacks a weapon while standing on one.
+The update focuses on enhancing compatibility with other mods while refining the weapon selection mechanics.
 
 ## Key Features and Systems
 
-- **Weapon Acquisition Settings**: Customize how pawns should search for weapons, ensuring they always have access to the appropriate tools for their tasks.
-- **Mod Compatibility**: Supports integration with other popular mods such as Simple Sidearms and Android Tiers, but not compatible with Awesome Inventory.
-- **Accuracy-Type Switching**: Provides an option to switch to weapons with similar accuracy types (e.g., long, medium, short, close), optimizing pawn weapon choices.
-- **Job Extensions**: Extends the job giver systems to improve how pawns select weapons based on their environment and tasks.
+- **Automatic Weapon Search**: Pawns will autonomously search for and equip appropriate weapons, reducing manual oversight.
+- **Mod Compatibility**: 
+  - Integrates with the Simple Sidearms and Android Tiers mods.
+  - Known incompatibilities with Awesome Inventory.
+- **Customization Options**: 
+  - Set preferences for weapon selection based on accuracy type (long/medium/short/close range).
+  - Option to enable or disable certain features for better control.
+- **Job Giver Extension**: Extends `JobGiver_PickUpOpportunisticWeapon` to automate weapon acquisition.
+- **Thought Tree Integration**: Modifies pawn thought processes to prioritize weapon procurement within their outfits.
 
 ## Coding Patterns and Conventions
 
-- **Class Structure**: The main mod functionality is divided into several classes, with each class focusing on a specific aspect of the mod’s functionality.
-- **Static Methods and Classes**: Utilizes static methods and classes (`Gunfitter`, `GunsInOutfits`) to manage shared logic and reduce redundancy.
-- **Internal Classes**: Certain classes like `FindAGunDamnItMod` and `FindAGunDamnItModSettings` are internal, allowing easy access within the project while encapsulating functionality.
-- **Inheritance**: The class `JobGiver_PickUpOpportunisticWeapon_Extended` inherits from `JobGiver_PickUpOpportunisticWeapon` to extend functionality without altering existing game logic.
+- **Code Structure**: Follows a modular pattern with distinct responsibilities for each class.
+- **Naming Conventions**: 
+  - UpperCamelCase for classes and methods.
+  - camelCase for variables.
+- **Error Handling**: Incorporate logging for debugging, especially in areas concerning mod interactions.
 
 ## XML Integration
 
-The mod requires careful integration with RimWorld's XML definitions:
-- Ensure XML definitions correctly specify any new or altered job definitions.
-- Use XML for defining settings and options that can be configured by the user.
+- **Patch Files**: Two XML files (`PatchThoughts.xml`, `PatchThoughts_AndroidTiers.xml`) are used to integrate modifications with the game's thinking and thought tree logic.
+  - Ensure values and nodes in XML align with game definitions.
+  - Maintain detailed comments within XML files to document changes and interactions.
 
 ## Harmony Patching
 
-- **Patching Strategy**: Use Harmony to patch original methods to introduce new functionalities without modifying core game code. This ensures compatibility and reduces the risk of conflicts.
-- **Example Patch Usage**: Extend and override methods in the `Thought Tree` and `Job Drivers` where necessary.
+- **Purpose**: Utilized for runtime modification of existing game methods.
+- **Approach**: 
+  - Apply postfix and prefix patches where needed, specifically in areas altering outfit functionality and job delivery.
+  - Ensure patches are only applied when certain mods (like Android Tiers) are active to prevent unwanted behavior.
 
 ## Suggestions for Copilot
 
-- **Improve Accuracy-Type Logic**: Assist in refining the logic for switching weapons based on accuracy type. Consider edge cases where pawns have multiple weapon alternatives nearby.
-- **Simplify Mod Integration**: Provide code suggestions to enhance compatibility with more mods while troubleshooting potential conflicts automatically.
-- **Error Handling**: Generate robust error-handling code sections that log discrepancies and provide feedback for users to upload logs using the Log Uploader tool.
-- **Debugging Tools**: Suggest automated testing strategies or snippets to verify the correct functioning of the extended job giver logic and compatibility features.
+- **Tool Usage**: When using Copilot, focus on suggestions for repetitive tasks like method stubs, try-catch blocks, and interface implementation.
+- **Contextual Suggestions**: Since modding involves working within an existing game framework, leverage Copilot to propose code by learning patterns from Harmony patches and RimWorld API usage.
+- **Testing**: Harness Copilot to design testing methods that ensure mod compatibility and correctness, especially during weapon assignment and behavior changes.
+- **Documentation**: Use Copilot to help draft and refine comments and documentation blocks in both C# and XML files to maintain readability and future maintenance.
 
-Remember to test any changes in a mod development environment, and always check for updates from dependencies before deploying any modifications. For issues or further support, use the designated Discord channel or GitHub repository discussions, avoiding GitHub threads which may not send notifications.
+By following these guidelines and utilizing Copilot effectively, contributors can efficiently develop and improve the FindAGunDamnIt! mod, enhancing gameplay for RimWorld users.
+
+
+This document provides a comprehensive set of guidelines and instructions for developers working on the FindAGunDamnIt! mod project, enabling efficient use and integration of GitHub Copilot into their workflow.
 
 ## Project Solution Guidelines
 - Relevant mod XML files are included as Solution Items under the solution folder named XML, these can be read and modified from within the solution.
@@ -47,3 +58,9 @@ Remember to test any changes in a mod development environment, and always check 
 - When making functional changes in this mod, ensure the documented features stay in sync with implementation; use the in-solution `.github` copy as the primary file.
 - In the solution is also a project called Assembly-CSharp, containing a read-only version of the decompiled game source, for reference and debugging purposes.
 - For any new documentation, update this copilot-instructions.md file rather than creating separate documentation files.
+
+
+## Hard rules (must follow)
+- Do NOT run commands that modify the repo (no git commit, git apply, dotnet format) unless explicitly asked.
+- Prefer minimal reads: read only the smallest code region needed (around the suspicious lines).
+

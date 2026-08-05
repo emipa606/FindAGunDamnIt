@@ -1,5 +1,8 @@
 # Changelog for FindAGunDamnIt
 
+1.6.3 - Fixed inverted value-check, thanks Spagles
+
+
 1.6.2 - Temporary colonists should not switch weapons
 
 
