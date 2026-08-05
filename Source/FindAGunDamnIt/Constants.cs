@@ -19,14 +19,5 @@ public static class Constants
     static Constants()
     {
         SimpleSidearmsLoaded = ModLister.HasActiveModWithName("Simple sidearms");
-        if (FindAGunDamnItMod.Instance.Settings != null)
-        {
-            return;
-        }
-
-        if (FindAGunDamnItMod.Instance.Settings != null)
-        {
-            FindAGunDamnItMod.Instance.Settings.FindingSetting = FindAGunDamnItMod.FindingSettings[0];
-        }
     }
 }
