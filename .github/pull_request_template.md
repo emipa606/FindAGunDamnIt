@@ -43,7 +43,7 @@ Did you use AI assistance when creating this pull request?
 
 If yes, please read the AI contribution policy.
 
-./blob/main/AI_POLICY.md
+[AI_POLICY.md](https://github.com/emipa606/FindAGunDamnIt/blob/main/AI_POLICY.md)
 
 - [ ] I have read the AI policy
 
